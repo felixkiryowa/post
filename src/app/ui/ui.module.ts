@@ -11,13 +11,19 @@ import { PostFormComponent } from './post-form/post-form.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SuiModule } from 'ng2-semantic-ui'; 
 import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
+import { ProfileComponent } from './profile/profile.component';
+import { RequestResetComponent } from './password/request-reset/request-reset.component';
+import { ResponseResetComponent } from './password/response-reset/response-reset.component';
 
 const appRoutes: Routes = [
   { path: 'posts', component: PostListComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'post/create', component: PostFormComponent },
   { path: 'post/:id', component: PostViewComponent },
   { path: 'post/edit/:id', component: PostFormComponent },
-  { path: '', redirectTo: '/posts', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
 
 @NgModule({
@@ -29,7 +35,8 @@ const appRoutes: Routes = [
     FormsModule,
     SuiModule
   ],
-  declarations: [LayoutComponent, HeaderComponent, FooterComponent, PostListComponent, PostViewComponent, PostFormComponent],
+  declarations: [LayoutComponent, HeaderComponent, FooterComponent, PostListComponent,
+     PostViewComponent, PostFormComponent, LoginComponent, SignupComponent, ProfileComponent, RequestResetComponent, ResponseResetComponent],
   exports: [LayoutComponent]
 })
 export class UiModule { }

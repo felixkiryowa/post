@@ -1,19 +1,50 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { Post } from '../models/post.model';
 
+const httpOptions = { // <- Place outside class right below imports
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 @Injectable({
   providedIn: 'root'
 })
+
 export class PostService {
 
   private postsUrl = 'http://127.0.0.1:8000/api/posts';
   private specialUrl = 'http://127.0.0.1:8000/api/post';
- 
+  private addPostUrl = 'http://127.0.0.1:8000/api/post/create';
   constructor(private http: HttpClient) { }
- 
+
+  /** POST: add a new post to the server */
+  addPost(newPost: Post): Observable<Post> {
+    return this.http.post<Post>(this.addPostUrl, newPost, httpOptions).pipe(
+      tap((post: Post) => console.log(`added post w/ id=${post.id}`)),
+      catchError(this.handleError<Post>('addPost'))
+    );
+  }
+
+  /** DELETE: delete the post from the server */
+  deletePost(post: Post | number): Observable<Post> {
+    const id = typeof post === 'number' ? post : post.id;
+    const url = `${this.specialUrl}/${id}`;
+   return this.http.delete<Post>(url, httpOptions).pipe(
+      tap(_ => console.log(`deleted post id=${id}`)),
+      catchError(this.handleError<Post>('deletePost'))
+    );
+  }
+
+   /** UPDATE: update selected post on the server */
+   updatePost(post: Post): Observable<any> {
+    const url = `${this.postsUrl}/${post.id}`;
+    // const url = `${this.postsUrl}`; // Uncomment this to demonstrate error handling
+    return this.http.put(url, post, httpOptions).pipe(
+      tap(_ => console.log(`updated post id=${post.id}`)),
+      catchError(this.handleError<any>('updatePost'))
+    );
+  }
   getPosts(): Observable<Post[]> {
     return this.http.get<Post[]>(this.postsUrl)
       .pipe(

@@ -10,16 +10,16 @@
     <div class="fields">
       <div class="field">
         <label>User Id</label>
-        <input type="number" [(ngModel)]="post.userId" id="userId" name="userId" required>
+        <input type="number" [(ngModel)]="post.user_id" [value]='post.user_id' id="user_id" name="user_id" required>
       </div>
     </div>
     <div class="field">
       <label>Title</label>
-      <input type="text" [(ngModel)]="post.title" id="title" name="title" required>
+      <input type="text" [(ngModel)]="post.title" [value]='post.title' id="title" name="title" required>
     </div>
     <div class="field">
       <label>Body</label>
-      <textarea rows="5" [(ngModel)]="post.body" id="body" name="body" required></textarea>
+      <textarea rows="5" [(ngModel)]="post.body" [value]='post.body' id="body" name="body" required></textarea>
     </div>
     <div class="ui error message">
       <div class="header">An Error Occurred!</div>

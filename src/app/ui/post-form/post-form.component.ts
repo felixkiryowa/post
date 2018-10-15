@@ -3,6 +3,7 @@ import { Post } from '../../models/post.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from '../../services/post.service';
 import { Location } from '@angular/common';
+import { NgForm } from '@angular/forms';
 
 
 @Component({
@@ -11,10 +12,9 @@ import { Location } from '@angular/common';
   styleUrls: ['./post-form.component.css']
 })
 export class PostFormComponent implements OnInit {
-
   post: Post;
   loading: boolean;
-  submitText: String = "Save";
+  submitText: String = 'Save';
   error: String;
 
   constructor(
@@ -36,13 +36,14 @@ export class PostFormComponent implements OnInit {
       this.postService.getPost(id)
         .subscribe(post => {
           this.post = post;
-          this.submitText = "Update";
+          console.log(post);
+          this.submitText = 'Update';
           this.loading = false;
         });
     } else {
       console.log('create new post');
       this.post = new Post(); // Create new post
-      this.submitText = "Create";
+      this.submitText = 'Create';
       this.loading = false;
     }
   }
@@ -56,6 +57,7 @@ export class PostFormComponent implements OnInit {
           error => this.handleError(error)
       );
     } else { // Create New Post
+      console.log(this.post);
       this.postService.addPost(this.post)
         .subscribe(
           () => this.gotoPosts(),
@@ -63,7 +65,6 @@ export class PostFormComponent implements OnInit {
         );
     }
   }
- 
   onDelete() {
     this.loading = true;
     if(this.post.id) {
@@ -74,11 +75,9 @@ export class PostFormComponent implements OnInit {
         );
     }
   }
- 
   gotoPosts() {
     this.router.navigate(['/posts']);
   }
- 
   goBack() {
     this.location.back();
   }
