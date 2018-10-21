@@ -20,6 +20,11 @@ import { ResponseResetComponent } from './password/response-reset/response-reset
 const appRoutes: Routes = [
   { path: 'posts', component: PostListComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignupComponent },
+  { path: 'profile', component: ProfileComponent },
+  { path: 'request-password-reset', component: RequestResetComponent },
+  { path: 'response-password-reset', component: ResponseResetComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'post/create', component: PostFormComponent },
   { path: 'post/:id', component: PostViewComponent },
   { path: 'post/edit/:id', component: PostFormComponent },
@@ -36,7 +41,8 @@ const appRoutes: Routes = [
     SuiModule
   ],
   declarations: [LayoutComponent, HeaderComponent, FooterComponent, PostListComponent,
-     PostViewComponent, PostFormComponent, LoginComponent, SignupComponent, ProfileComponent, RequestResetComponent, ResponseResetComponent],
+     PostViewComponent, PostFormComponent, LoginComponent, SignupComponent, ProfileComponent,
+      RequestResetComponent, ResponseResetComponent],
   exports: [LayoutComponent]
 })
 export class UiModule { }
