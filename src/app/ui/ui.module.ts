@@ -17,6 +17,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { RequestResetComponent } from './password/request-reset/request-reset.component';
 import { ResponseResetComponent } from './password/response-reset/response-reset.component';
 
+import { AuthService } from '../services/auth.service';
+import { TokenService } from '../services/token.service';
 const appRoutes: Routes = [
   { path: 'posts', component: PostListComponent },
   { path: 'login', component: LoginComponent },
@@ -39,6 +41,10 @@ const appRoutes: Routes = [
     HttpClientModule,
     FormsModule,
     SuiModule
+  ],
+  providers: [
+    AuthService,
+    TokenService
   ],
   declarations: [LayoutComponent, HeaderComponent, FooterComponent, PostListComponent,
      PostViewComponent, PostFormComponent, LoginComponent, SignupComponent, ProfileComponent,
