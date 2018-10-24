@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
-import { TokenService } from 'src/app/services/token.service';
+import { AuthService } from '../../services/auth.service';
+import { TokenService } from '../../services/token.service';
 import { Router } from '@angular/router';
+import { LoggedUserService } from '../../Services/logged-user.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private auth_service: AuthService, private token: TokenService,
-    private router: Router
+    private router: Router,
+    private loggedin_user: LoggedUserService
     ) { }
 
   ngOnInit() {
@@ -36,6 +38,7 @@ export class LoginComponent implements OnInit {
 
   handleResponse(data) {
     this.token.handle(data.access_token);
+    this.loggedin_user.checkAuthStatus(true);
     this.router.navigateByUrl('/profile');
   }
   handleError(error) {

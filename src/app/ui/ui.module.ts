@@ -19,18 +19,61 @@ import { ResponseResetComponent } from './password/response-reset/response-reset
 
 import { AuthService } from '../services/auth.service';
 import { TokenService } from '../services/token.service';
+import { LoggedUserService } from '../Services/logged-user.service';
+import { AfterLoginService } from '../services/after-login.service';
+import { BeforeLoginService } from '../services/before-login.service';
 const appRoutes: Routes = [
-  { path: 'posts', component: PostListComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignupComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'request-password-reset', component: RequestResetComponent },
-  { path: 'response-password-reset', component: ResponseResetComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'post/create', component: PostFormComponent },
-  { path: 'post/:id', component: PostViewComponent },
-  { path: 'post/edit/:id', component: PostFormComponent },
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  {
+    path: 'posts',
+    component: PostListComponent,
+    canActivate: [AfterLoginService]
+   },
+  {
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [BeforeLoginService]
+
+},
+  {
+    path: 'signup',
+    component: SignupComponent,
+    canActivate: [BeforeLoginService] },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [AfterLoginService]
+
+  },
+  {
+    path: 'request-password-reset',
+    component: RequestResetComponent,
+    canActivate: [AfterLoginService]
+  },
+  {
+    path: 'response-password-reset',
+    component: ResponseResetComponent,
+    canActivate: [AfterLoginService]
+  },
+  {
+    path: 'post/create',
+    component: PostFormComponent,
+    canActivate: [AfterLoginService]
+  },
+  {
+    path: 'post/:id',
+    component: PostViewComponent,
+    canActivate: [AfterLoginService]
+   },
+  {
+    path: 'post/edit/:id',
+    component: PostFormComponent,
+    canActivate: [AfterLoginService]
+  },
+  {
+    path: '',
+     redirectTo: '/login',
+      pathMatch: 'full'
+   },
 ];
 
 @NgModule({
@@ -44,7 +87,10 @@ const appRoutes: Routes = [
   ],
   providers: [
     AuthService,
-    TokenService
+    TokenService,
+    LoggedUserService,
+    AfterLoginService,
+    BeforeLoginService
   ],
   declarations: [LayoutComponent, HeaderComponent, FooterComponent, PostListComponent,
      PostViewComponent, PostFormComponent, LoginComponent, SignupComponent, ProfileComponent,
