@@ -9,11 +9,8 @@ import { Observable } from 'rxjs';
 export class BeforeLoginService implements CanActivate {
 
   constructor(private token: TokenService, private router: Router) { }
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-      // handle any redirects if a user isn't authenticated
-      this.router.navigate(['/login']);
+  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> | boolean {
+      // handle any redirects if a user isn't authenticate
       return !this.token.loggedIn();
   }
 }

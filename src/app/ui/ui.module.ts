@@ -22,6 +22,7 @@ import { TokenService } from '../services/token.service';
 import { LoggedUserService } from '../Services/logged-user.service';
 import { AfterLoginService } from '../services/after-login.service';
 import { BeforeLoginService } from '../services/before-login.service';
+import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
 const appRoutes: Routes = [
   {
     path: 'posts',
@@ -47,7 +48,7 @@ const appRoutes: Routes = [
   {
     path: 'request-password-reset',
     component: RequestResetComponent,
-    canActivate: [AfterLoginService]
+    canActivate: [BeforeLoginService]
   },
   {
     path: 'response-password-reset',
@@ -83,6 +84,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
     FormsModule,
+    SnotifyModule,
     SuiModule
   ],
   providers: [
@@ -90,7 +92,9 @@ const appRoutes: Routes = [
     TokenService,
     LoggedUserService,
     AfterLoginService,
-    BeforeLoginService
+    BeforeLoginService,
+    { provide: 'SnotifyToastConfig', useValue: ToastDefaults},
+    SnotifyService
   ],
   declarations: [LayoutComponent, HeaderComponent, FooterComponent, PostListComponent,
      PostViewComponent, PostFormComponent, LoginComponent, SignupComponent, ProfileComponent,
