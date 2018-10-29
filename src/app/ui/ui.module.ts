@@ -22,7 +22,12 @@ import { TokenService } from '../services/token.service';
 import { LoggedUserService } from '../Services/logged-user.service';
 import { AfterLoginService } from '../services/after-login.service';
 import { BeforeLoginService } from '../services/before-login.service';
+import { CustomerService } from '../services/customer.service';
 import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
+import { MessageService } from '../services/message.service';
+import { CustomerComponent } from '../customer/customer.component';
+import { CustomerDetailsComponent } from '../customer-details/customer-details.component';
+import { AddCustomerComponent } from '../add-customer/add-customer.component';
 const appRoutes: Routes = [
   {
     path: 'posts',
@@ -71,8 +76,20 @@ const appRoutes: Routes = [
     canActivate: [AfterLoginService]
   },
   {
+    path: 'customers',
+    component: CustomerComponent
+  },
+  {
+    path: 'customer/add',
+    component: AddCustomerComponent
+  },
+  {
+    path: 'customers/:id',
+    component: CustomerDetailsComponent
+  },
+  {
     path: '',
-     redirectTo: '/login',
+     redirectTo: '/customers',
       pathMatch: 'full'
    },
 ];
@@ -94,11 +111,13 @@ const appRoutes: Routes = [
     AfterLoginService,
     BeforeLoginService,
     { provide: 'SnotifyToastConfig', useValue: ToastDefaults},
-    SnotifyService
+    SnotifyService,
+    MessageService,
+    CustomerService
   ],
   declarations: [LayoutComponent, HeaderComponent, FooterComponent, PostListComponent,
      PostViewComponent, PostFormComponent, LoginComponent, SignupComponent, ProfileComponent,
-      RequestResetComponent, ResponseResetComponent],
+      RequestResetComponent, ResponseResetComponent, CustomerComponent, CustomerDetailsComponent, AddCustomerComponent],
   exports: [LayoutComponent]
 })
 export class UiModule { }

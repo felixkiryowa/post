@@ -1,7 +1,7 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~font-awesome/css/font-awesome.css";
 
-
+/* 
 .ng-invalid:not(form){
     border-left:5px solid red;
 }
@@ -9,4 +9,12 @@
 
 .ng-valid:not(form){
     border-left:5px solid  green;
+} */
+
+.ng-valid[required], .ng-valid.required  {
+    border-left: 5px solid rgba(32, 77, 32, 0.623);
+}
+ 
+.ng-invalid:not(form)  {
+    border-left: 5px solid rgb(148, 27, 27);
 }

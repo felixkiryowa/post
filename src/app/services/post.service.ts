@@ -13,9 +13,9 @@ const httpOptions = { // <- Place outside class right below imports
 
 export class PostService {
 
-  private postsUrl = 'http://127.0.0.1:8000/api/posts';
-  private specialUrl = 'http://127.0.0.1:8000/api/post';
-  private addPostUrl = 'http://127.0.0.1:8000/api/post/create';
+  private postsUrl = 'http://127.0.0.1:8000/api/auth/posts';
+  private specialUrl = 'http://127.0.0.1:8000/api/auth/post';
+  private addPostUrl = 'http://127.0.0.1:8000/api/auth/post/create';
   constructor(private http: HttpClient) { }
 
   /** POST: add a new post to the server */
